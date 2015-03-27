@@ -74,11 +74,11 @@ void mousePressed() {
   creatures.add(c);
   
   colony1.add(c);
-  
+  println(mouseX,mouseY);
 }
 
 void keyPressed(){
-    Creature c = new TriangleCreature(mouseX, mouseY, 10);
+    Creature c = new CircleCreature(mouseX+100, mouseY-100, 10);
   
   creatures.add(c);
   
@@ -93,19 +93,17 @@ void perlin(){
     acceleration.mult(1.0);
     
     noff.add(0.01, 0.01, 0);
-    println(noff.x);
     
     velocity.add(acceleration);
     velocity.limit(10);
     location.add(velocity);
-    location.x = constrain(location.x, 70, 420);//constrain colony between these values.
-    location.y = constrain(location.y, 200, 400);
+
   
-    perlinX1 = (int)(constrain(location.x, 70, 400));
-    perlinY1 = (int)(constrain(location.y, 200, 400));
+    perlinX1 = (int)(constrain(location.x, 200, 400));
+    perlinY1 = (int)(constrain(location.y, 200, 600));
     
-    perlinX2 = (int)(constrain(location.x+100, 70, 400));
-    perlinY2 = (int)(constrain(location.y-200, 200, 400));
+    perlinX2 = (int)(constrain(location.x+100, 200, 400));
+    perlinY2 = (int)(constrain(location.y-200, 200, 600));
     
     
 }

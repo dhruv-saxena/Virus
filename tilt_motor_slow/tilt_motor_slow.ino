@@ -20,10 +20,10 @@ int midMotor2;
 int motorVal1;
 int motorVal2;
 
-int m1Low = 20;
-int m1High = 40;
-int m2Low = 30;
-int m2High = 50;
+int m1Low = 10;
+int m1High = 50;
+int m2Low = 20;
+int m2High = 60;
 
 unsigned long currentTime;
 unsigned long prevTime;
@@ -101,11 +101,11 @@ void lights() {
 
 void motors() {
   motorMove();
-  delay(50);
+  delay(20);
   myservo1.write(motorVal1);
 
   motorMove();
-  delay(50);
+  delay(20);
   myservo2.write(motorVal2);
 
 }
