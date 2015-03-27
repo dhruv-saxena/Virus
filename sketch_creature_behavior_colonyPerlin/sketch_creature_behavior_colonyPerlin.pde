@@ -2,8 +2,8 @@ import teilchen.Physics;
 import teilchen.util.CollisionManager;
 import teilchen.behavior.Arrival;
 
-final int CANVAS_WIDTH = 500;
-final int CANVAS_HEIGHT = 500;
+final int CANVAS_WIDTH = 1200;
+final int CANVAS_HEIGHT = 800;
 
 int perlinX1;
 int perlinY1;
@@ -36,6 +36,7 @@ void setup() {
   
   colony1 = new Colony(physics, collision); 
   colony2 = new Colony(physics, collision);  
+  loadImages();
   
 }
 
@@ -50,7 +51,7 @@ void draw() {
 
   physics.step(1.0 / frameRate);
  
-  background(23, 68, 250);
+  background(0);
   stroke(255);
   noFill();
   
@@ -60,6 +61,9 @@ void draw() {
   }
   
   collision.removeCollisionResolver();
+  
+  renderImages();
+  drawEllipses();
 
 }
 
@@ -97,10 +101,10 @@ void perlin(){
     location.x = constrain(location.x, 70, 420);//constrain colony between these values.
     location.y = constrain(location.y, 200, 400);
   
-    perlinX1 = (int)(constrain(location.x, 70, 420));
+    perlinX1 = (int)(constrain(location.x, 70, 400));
     perlinY1 = (int)(constrain(location.y, 200, 400));
     
-    perlinX2 = (int)(constrain(location.x+100, 70, 420));
+    perlinX2 = (int)(constrain(location.x+100, 70, 400));
     perlinY2 = (int)(constrain(location.y-200, 200, 400));
     
     
