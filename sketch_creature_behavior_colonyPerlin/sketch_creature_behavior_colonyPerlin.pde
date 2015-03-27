@@ -1,15 +1,26 @@
 import teilchen.Physics;
 import teilchen.util.CollisionManager;
 import teilchen.behavior.Arrival;
+import processing.serial.*;
+
 
 final int CANVAS_WIDTH = 1200;
 final int CANVAS_HEIGHT = 800;
+
+Serial myPort; 
+
+boolean passwords = false;
+boolean pics = false;
+boolean apps = false;
+boolean destroy = false;
 
 int perlinX1;
 int perlinY1;
 
 int perlinX2;
 int perlinY2;
+
+int serialVal;
 
 PVector location = new PVector(CANVAS_WIDTH/2, CANVAS_WIDTH/2);;
 PVector velocity = new PVector(); 
@@ -29,6 +40,10 @@ void setup() {
   background(23, 68, 250);
   frameRate(30);
   
+  String portName = Serial.list()[2];
+  println(portName);
+  myPort = new Serial(this, portName, 9600);
+  
   physics = new Physics();
   
   collision = new CollisionManager();
@@ -42,9 +57,15 @@ void setup() {
 
 void draw() {
   
+  serialEvent();
   perlin();
   colony1.migrate_to(perlinX1, perlinY1);
   colony2.migrate_to(perlinX2,perlinY2);
+  
+  if(passwords){
+  colony1.migrate_to(220, 390);
+  colony2.migrate_to(300,530);
+  }
   
   collision.createCollisionResolvers();
   collision.loop(1.0 / frameRate);
@@ -106,4 +127,39 @@ void perlin(){
     perlinY2 = (int)(constrain(location.y-200, 200, 600));
     
     
+}
+
+void serialEvent(){
+  
+  if ( myPort.available() > 0) {  // If data is available,
+    serialVal = myPort.read();         // read it and store it in val
+  }
+  if (serialVal == 0){               
+    passwords = true;
+    pics = false; 
+    apps = false;
+    destroy = false;
+}
+
+  if (serialVal == 1){               
+    passwords = false;
+    pics = true; 
+    apps = false;
+    destroy = false;
+}    
+
+  if (serialVal == 2){               
+    passwords = false;
+    pics = false; 
+    apps = true;
+    destroy = false;
+}
+
+  if (serialVal == 3){               
+    passwords = false;
+    pics = false; 
+    apps = false;
+    destroy = true;
+}
+
 }

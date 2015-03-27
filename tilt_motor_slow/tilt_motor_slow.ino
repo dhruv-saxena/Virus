@@ -50,7 +50,7 @@ void setup()
   for (int i = 0; i < 4; i++) {
     light[i] = smoothing(lightPins[i]);
     lightAmbient[i] = light[i];
-    Serial.println(lightAmbient[i]);
+    //Serial.println(lightAmbient[i]);
   }
 
 }
@@ -86,7 +86,11 @@ void lights() {
         light[i] = smoothing(lightPins[i]);
         if (currentTime > (prevTime + time)){
           if(!printed){
-            Serial.println(i);
+            Serial.write(i);
+            Serial.write(i);
+            Serial.write(i);
+            Serial.write(i);
+            Serial.write(i);
             ballPrev = ballNow;//
             ballNow = i;//
             
