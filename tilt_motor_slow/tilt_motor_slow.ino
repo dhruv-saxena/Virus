@@ -10,8 +10,8 @@ int joypin2 = A1;
 
 boolean printed = false;
 int diff = 200;
-int ballPrev;
-int ballNow;
+int ballPrev = -1;
+int ballNow = -1;
 
 int joy1;
 int joy2;
@@ -77,21 +77,25 @@ void printLights(){
 
 void lights() {
   for (int i = 0; i < 4; i++) {
-    light[i] = smoothing(lightPins[i]);
-    if (light[i] < (lightAmbient[i] - diff)) {
+    light[i] = smoothing(lightPins[i]); //read each light
+    if (light[i] < (lightAmbient[i] - diff)) { //trigger
       prevTime = millis();
-      while (light[i] < (lightAmbient[i] - diff)) {
+      ballNow = i;//read ball when triggers
+      while (light[i] < (lightAmbient[i] - diff) && (ballPrev != ballNow)) {
         currentTime = millis();
         light[i] = smoothing(lightPins[i]);
         if (currentTime > (prevTime + time)){
           if(!printed){
             Serial.println(i);
+            ballPrev = ballNow;//
+            ballNow = i;//
+            
           }  
           printed = true; 
+          break;
         }
       }
     }
-
   }
 }
 
