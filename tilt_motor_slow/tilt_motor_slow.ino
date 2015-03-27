@@ -92,7 +92,7 @@ void lights() {
             
           }  
           printed = true; 
-          break;
+          break;//might need to comment this out
         }
       }
     }
